@@ -45,7 +45,6 @@ def clear_chat():
     history.clear()
 
 
-
 def send_question(event=None):
     boolean_check_log = check_file_log()
     if boolean_check_log:
@@ -92,10 +91,13 @@ buttons_frame.pack(pady=10)
 log_button = ttk.Button(buttons_frame, text="Logging", command=create_window_log, style="My.TButton")
 log_button.pack(side=tk.LEFT, padx=5)
 
+
 clear_button = ttk.Button(buttons_frame, text="Clear", command=clear_chat, style="My.TButton")
 clear_button.pack(side=tk.LEFT, padx=5)
 
 # TODO add button settings
 
+
 def main_window():
     app.mainloop()
+

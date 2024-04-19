@@ -6,18 +6,18 @@ from logs.check_log import check_file_log
 capture_id_chat = []
 
 
-def import_loog():
+def import_log():
     if check_file_log():
         email, passwd = read_log()
         return email, passwd
     else:
-        print("No se ha encontrado el fichero de log")
+        print("No file log.json")
         return None, None
 
 
 def create_cookies():
-    EMAIL, PASSWD = import_loog()
-    cookie_path_dir = "./cookies/"
+    EMAIL, PASSWD = import_log()
+    cookie_path_dir = "./storage/"
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login(cookie_dir_path=cookie_path_dir, save_cookies=True)
     return cookies
@@ -29,7 +29,6 @@ def capture_id_chat_id(id_chat):
     return capture_id_chat
 
 
-# Variable global para mantener la instancia del chatbot
 global_chatbot = None
 
 
@@ -46,42 +45,42 @@ def create_chatbot():
 
 async def chat_init(send):
     global capture_id_chat
-    chatbot = create_chatbot()  # Esto ahora reutilizará la instancia global si ya existe
-    print(f"Iniciando chat con mensaje: {send}")
+    chatbot = create_chatbot()
+    print(f"Chat init and send: {send}")
     try:
         if not capture_id_chat:
             new_chat = chatbot.new_conversation()
             capture_id_chat.append(new_chat.id)
         id_chat_capture = capture_id_chat[0]
         query_result = chatbot.chat(text=send, conversation_id=id_chat_capture)
-        print(f"Id_chat: {id_chat_capture}, Respuesta: {query_result}")
+        print(f"Id_chat: {id_chat_capture}, Response: {query_result}")
         return query_result
     except Exception as e:
-        print(f"Error al iniciar chat: {e}")
-        return "Error al iniciar la conversación."
+        print(f"Error chat init: {e}")
+        return "Error chat init."
 
 
 async def chat_continue(send):
     global capture_id_chat, global_chatbot
-    chatbot = global_chatbot  # Reutiliza la instancia global del chatbot
+    chatbot = global_chatbot
     if chatbot is None:
-        print("El chatbot no ha sido inicializado.")
-        return "El chatbot no ha sido inicializado."
+        print("El chatbot no init.")
+        return "El chatbot no init."
 
     if not capture_id_chat:
-        print("No se ha encontrado el id_chat")
-        return "No se ha encontrado el id_chat para continuar la conversación."
+        print("Chat_id not found")
+        return "Chat_id not found."
     id_chat_capture = capture_id_chat[0]
     try:
-        print(f"Continuando chat con mensaje: {send}, {id_chat_capture}")
+        print(f"Continue chat and send: {send}, {id_chat_capture}")
         query_result = chatbot.chat(text=send, conversation_id=id_chat_capture)
-        print(f"Respuesta: {query_result}")
+        print(f"Response: {query_result}")
         return query_result
     except Exception as e:
-        print(f"Error al continuar el chat: {e}")
-        return "Error al continuar la conversación."
+        print(f"Error continue chat: {e}")
+        return "Error continue chat."
 
 
 def chat_end():
-    if import_loog() is not None:
+    if import_log() is not None:
         create_chatbot().delete_all_conversations()

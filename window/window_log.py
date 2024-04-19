@@ -1,5 +1,4 @@
 import os
-
 import customtkinter as ctk
 from logs.create_log import capture_log
 from logs.create_log import read_log
@@ -10,7 +9,7 @@ class InputUs(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.label_us = ctk.CTkLabel(self, text="Usuario:", width=150)
+        self.label_us = ctk.CTkLabel(self, text="User:", width=150)
         self.label_us.grid(row=0, column=0)
 
         self.entry_new_us = ctk.CTkEntry(self, width=300)
@@ -21,7 +20,7 @@ class InputPasswd(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.label_passwd = ctk.CTkLabel(self, text="Contraseña:", width=150)
+        self.label_passwd = ctk.CTkLabel(self, text="Password:", width=150)
         self.label_passwd.grid(row=0, column=0)
 
         self.entry_new_passwd = ctk.CTkEntry(self, show="*", width=300)

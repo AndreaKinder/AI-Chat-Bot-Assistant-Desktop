@@ -81,3 +81,7 @@ async def chat_continue(send):
         print(f"Error al continuar el chat: {e}")
         return "Error al continuar la conversación."
 
+
+def chat_end():
+    if import_loog() is not None:
+        create_chatbot().delete_all_conversations()

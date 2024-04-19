@@ -17,7 +17,7 @@ def import_loog():
 
 def create_cookies():
     EMAIL, PASSWD = import_loog()
-    cookie_path_dir = "./cookies/"
+    cookie_path_dir = "./storage/"
     sign = Login(EMAIL, PASSWD)
     cookies = sign.login(cookie_dir_path=cookie_path_dir, save_cookies=True)
     return cookies

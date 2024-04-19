@@ -1,7 +1,9 @@
+import os
+
 import customtkinter as ctk
-from create_log import capture_log
-from create_log import read_log
-from directory_guide import log_directory
+from logs.create_log import capture_log
+from logs.create_log import read_log
+from src.directory_guide import log_directory
 
 
 class InputUs(ctk.CTkFrame):
@@ -60,6 +62,7 @@ class App(ctk.CTk):
 
 def create_window_log():
     file_path = log_directory()
-    open(file_path, 'w').close()
+    if os.path.exists(file_path):
+        os.remove(file_path)
     app = App()
     app.mainloop()

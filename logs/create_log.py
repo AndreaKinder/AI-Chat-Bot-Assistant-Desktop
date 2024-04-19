@@ -1,6 +1,6 @@
 import json
 import os
-import directory_guide
+from src import directory_guide
 
 folder_name = directory_guide.data_directory_folder()
 

@@ -1,6 +1,6 @@
 import os
-from window_log import create_window_log
-from directory_guide import log_directory
+from window.window_log import create_window_log
+from src.directory_guide import log_directory
 
 file_path = log_directory()
 
@@ -10,6 +10,7 @@ def check_directory(directory):
         return True
     else:
         return False
+
 
 def check_file_true():
     print("The directory exists and contains a JSON file.")

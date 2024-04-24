@@ -29,7 +29,7 @@ class InputPasswd(ctk.CTkFrame):
 
 class ButtonLog(ctk.CTkButton):
     def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
+        super().__init__(master, **kwargs, fg_color="#FF9800", text_color="black")
         self.button_action = ctk.CTkButton(self, width=20)
 
 

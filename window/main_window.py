@@ -30,7 +30,8 @@ def send_question_async(question):
         message = result
         response = message
 
-        messages.insert(tk.END, f"Chatbot: {response}\n\n")
+        messages.insert(tk.END, f"Chatbot: {response}\n\n", 'answer_tag')
+        messages.tag_configure('answer_tag', foreground=answer_color)
         messages.see(tk.END)
 
     def run_coroutine():
@@ -56,20 +57,28 @@ def send_question(event=None):
             send_question_async(question)
 
 
-black = "#000000"
-white = "#FFFFFF"
-blue = "#dbdbdb"
+colors = {
+  "primary": "#2196F3",
+  "secondary": "#FF9800",
+  "background": "#FFFFFF",
+  "text": "#333333",
+  "accent": "#EEEEEE"
+}
 
+# Definir la tipografía
+fonts = {
+"main": "Roboto",
+  "secondary": "Open Sans"
+}
 
 app = tk.Tk()
 app.title("Chatbot")
-app.configure(bg=blue)
 
 style = ttk.Style()
-style.configure("My.TButton", background=blue, foreground=black, borderwidth=2, padding=10, corner_radius=20)
-style.configure("My.TEntry", background=blue, foreground=black, borderwidth=2, padding=10, corner_radius=10)
+style.configure("My.TButton", background=colors["secondary"], foreground="black", borderwidth=2, padding=10, corner_radius=20)
+style.configure("My.TEntry", background=colors["background"], foreground="black", borderwidth=2, padding=10, corner_radius=10)
 
-messages = tk.Text(app, height=20, width=50, bg=white, fg=black, relief=tk.FLAT)
+messages = tk.Text(app, height=20, width=50, bg=colors["background"], fg="black", relief=tk.FLAT, font=("System UI", 10))
 messages.pack(padx=20, pady=20)
 
 entry_send_frame = ttk.Frame(app)
@@ -77,13 +86,12 @@ entry_send_frame.pack(pady=10)
 
 entry = ttk.Entry(entry_send_frame, style="My.TEntry", width=30)
 entry.grid(row=0, column=0, padx=(0, 10))
-entry.bind("<Return>", lambda event: send_question())
+entry.bind("<Return>", send_question)
 
 send_button = ttk.Button(entry_send_frame, text="Send", command=send_question, style="My.TButton")
 send_button.grid(row=0, column=1)
 
 entry.focus()
-
 
 buttons_frame = ttk.Frame(app)
 buttons_frame.pack(pady=10)
@@ -91,13 +99,9 @@ buttons_frame.pack(pady=10)
 log_button = ttk.Button(buttons_frame, text="Logging", command=create_window_log, style="My.TButton")
 log_button.pack(side=tk.LEFT, padx=5)
 
-
 clear_button = ttk.Button(buttons_frame, text="Clear", command=clear_chat, style="My.TButton")
 clear_button.pack(side=tk.LEFT, padx=5)
-
-# TODO add button settings
 
 
 def main_window():
     app.mainloop()
-

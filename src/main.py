@@ -1,4 +1,4 @@
-from window.main_window import main_window
+from src.window.main_window import main_window
 
 
 if __name__ == '__main__':

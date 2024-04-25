@@ -41,7 +41,7 @@ jobs:
             - name: Install dependencies (including pyinstaller)
               run: pip install -r requirements.txt pyinstaller
             - name: Package with PyInstaller
-              run: pyinstaller --onefile --noconsole your_hug_ai_chat_script.py 
+              run: pyinstaller /src/main.py 
             - name: Upload .exe
               uses: actions/upload-artifact@v3
               with:

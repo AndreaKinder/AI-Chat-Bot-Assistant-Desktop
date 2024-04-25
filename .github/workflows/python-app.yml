@@ -26,7 +26,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker buildx build --build-arg BUILDER=python:3.10-alpine -t hug-ai-chat:latest --load Dockerfile/Dockerfile.
+        run: docker buildx build --build-arg BUILDER=python:3.10-alpine -t hug-ai-chat:latest --load ./Dockerfile/Dockerfile.
 
       - name: Create .deb package
         run: |

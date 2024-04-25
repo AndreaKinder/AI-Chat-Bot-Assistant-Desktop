@@ -1,21 +1,28 @@
-name: Build and package Hug AI Chat
+name: Build and package Hugging Face Chat
 
 on:
   push:
     branches: [master]
 
 jobs:
-  build-exe:
-    runs-on: windows-latest
+  build-and-package:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
-           python-version: '3.10'
-           
-      - name: add requeriments.txt
-        run: pip freeze > requirements.txt
+          python-version: '3.10'
+
+      - name: Create requirements.txt (Linux only)
+        if: runner.os == 'ubuntu-latest'
+        run: |
+          pip freeze > requirements.txt
 
       - name: Install dependencies (including pyinstaller)
         run: pip install -r requirements.txt pyinstaller
@@ -23,8 +30,9 @@ jobs:
       - name: Package with PyInstaller
         run: pyinstaller src/main.py
 
-      - name: Upload .exe package
+      - name: Upload .exe package (Windows only)
+        if: runner.os == 'windows-latest'
         uses: actions/upload-artifact@v3
         with:
-           name: exe-package
-           path: dist/your_hug_ai_chat_script.exe
+          name: exe-package
+          path: dist/your_hug_ai_chat.exe

@@ -5,53 +5,14 @@ on:
     branches: [master]
 
 jobs:
-  build-deb:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.10'
-
-      - name: Create requirements.txt
-        run: pip freeze > requirements.txt
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker image
-        run: docker buildx build --build-arg BUILDER=python:3.10-alpine -t hug-ai-chat:latest --load ./Dockerfile/Dockerfile.
-
-      - name: Create .deb package
-        run: |
-          docker run -v $PWD:/app hug-ai_chat:latest sh -c "apt-get update && apt-get install -y dpkg-dev" && dpkg-buildpackage -b -us -uc
-
-      - name: Upload .deb package
-        uses: actions/upload-artifact@v3
-        with:
-          name: deb-package
-          path: dist/hug_ai_chat.deb
-
   build-exe:
     runs-on: windows-latest
-    needs: build-deb
 
     steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: deb-package
-          path: dist
-
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
-          python-version: '3.10'
+           python-version: '3.10'
 
       - name: Install dependencies (including pyinstaller)
         run: pip install -r requirements.txt pyinstaller
@@ -62,5 +23,5 @@ jobs:
       - name: Upload .exe package
         uses: actions/upload-artifact@v3
         with:
-          name: exe-package
-          path: dist/your_hug_ai_chat_script.exe
+           name: exe-package
+           path: dist/your_hug_ai_chat_script.exe

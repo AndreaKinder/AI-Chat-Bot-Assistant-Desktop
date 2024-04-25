@@ -5,24 +5,14 @@ on:
     branches: [master]
 
 jobs:
-  build-and-package:
-    strategy:
-      matrix:
-        os: [ubuntu, windows-latest]
-    runs-on: ${{ matrix.os }}
+  build-linux-exe:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.10'
-
-      - name: Create requirements.txt (Linux only)
-        if: runner.os == 'ubuntu'
-        run: |
-          pip freeze > requirements.txt
+      - name: create requeriments.txt
+        run: pip freeze > requirements.txt
 
       - name: Install dependencies (including pyinstaller)
         run: pip install -r requirements.txt pyinstaller
@@ -30,8 +20,28 @@ jobs:
       - name: Package with PyInstaller
         run: pyinstaller src/main.py
 
-      - name: Upload .exe package (Windows only)
-        if: runner.os == 'windows-latest'
+      - name: Upload .deb package
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb-package
+          path: dist/hug_ai_chat.deb
+
+  build-windows-exe:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: create requeriments.txt
+        run: pip freeze > requirements.txt
+
+      - name: Install dependencies (including pyinstaller)
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Package with PyInstaller
+        run: pyinstaller src/main.py
+
+      - name: Upload .exe package
         uses: actions/upload-artifact@v3
         with:
           name: exe-package

@@ -2,7 +2,7 @@ name: Build and package Hug AI Chat
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 jobs:
       build-deb:
         runs-on: ubuntu-latest

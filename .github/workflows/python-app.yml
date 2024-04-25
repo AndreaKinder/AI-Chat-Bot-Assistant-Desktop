@@ -19,7 +19,7 @@ jobs:
           - name: Set up Docker Buildx
             uses: docker/setup-buildx-action@v2
           - name: Build Docker image
-            run: docker buildx build --build-arg BUILDER=python:3.10-alpine -t hug-ai-chat:latest /Dockerfile
+            run: docker buildx build --build-arg BUILDER=python:3.10-alpine -t hug-ai-chat:latest ../../Dockerfile/
           - name: Create .deb package
             run: |
               docker run -v $PWD:/app hug-ai_chat:latest sh -c "apt-get update && apt-get install -y dpkg-dev"  && dpkg-buildpackage -b -us -uc

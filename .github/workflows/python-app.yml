@@ -8,7 +8,7 @@ jobs:
   build-and-package:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu, windows-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -20,7 +20,7 @@ jobs:
           python-version: '3.10'
 
       - name: Create requirements.txt (Linux only)
-        if: runner.os == 'ubuntu-latest'
+        if: runner.os == 'ubuntu'
         run: |
           pip freeze > requirements.txt
 

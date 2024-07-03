@@ -2,7 +2,8 @@
 AI-Chat-Bot-Assistant-Desktop is an open source project, based on the [hugging-chat-api](https://github.com/Soulter/hugging-chat-api ) and the GPT Chat API, designed to provide a friendly user interface and chatbot assistant functionalities. This repository contains all the files needed to setup and run the chatbot assistant in a desktop environment.
 
 ## Features 📝
-![image](https://github.com/AndreaKinder/AI-Chat-Bot-Assistant-Desktop/assets/144063021/c8ef1111-3876-428c-a6ee-c66ba1fe181d)
+![image](https://github.com/AndreaKinder/AI-Chat-Bot-Assistant-Desktop/assets/144063021/05f38d7f-111c-4dad-b3e1-6d93cab0cb19)
+
 
 - Intuitive UI: A clean and simple interface that makes it easy to interact with the chatbot.
 - Organized Code: Well-organized code structure for easy navigation and maintenance.

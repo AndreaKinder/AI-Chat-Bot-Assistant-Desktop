@@ -100,7 +100,7 @@ class InputPasswd(ctk.CTkFrame):
 
 class ButtonLog(ctk.CTkButton):
     def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs, fg_color="#FF9800", text_color="black")
+        super().__init__(master, **kwargs, text_color="black")
 
 class InputKeyGPT(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
